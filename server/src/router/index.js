@@ -43,12 +43,14 @@ router.post(
   contestController.getCustomersContests
 );
 
-router.get(
-  '/getContestById',
-  checkToken.checkToken,
-  basicMiddlewares.canGetContest,
-  contestController.getContestById
-);
+// get /getContestById -> get /contests/:id
+// headers -> params
+// router.get(
+//   '/getContestById',
+//   checkToken.checkToken,
+//   basicMiddlewares.canGetContest,
+//   contestController.getContestById
+// );
 
 router.post(
   '/getAllContests',
