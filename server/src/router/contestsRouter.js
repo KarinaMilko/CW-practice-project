@@ -11,7 +11,6 @@ const contestsRouter = Router();
 
 contestsRouter.post(
   '/',
-  checkToken.checkToken,
   basicMiddlewares.onlyForCustomer,
   upload.uploadContestFiles,
   basicMiddlewares.parseBody,
@@ -21,20 +20,14 @@ contestsRouter.post(
 
 contestsRouter.get(
   '/',
-  checkToken.checkToken,
   basicMiddlewares.onlyForCreative,
   contestController.getContests
 );
 
-contestsRouter.get(
-  '/byCustomer',
-  checkToken.checkToken,
-  contestController.getCustomersContests
-);
+contestsRouter.get('/byCustomer', contestController.getCustomersContests);
 
 contestsRouter.get(
   '/:id',
-  checkToken.checkToken,
   basicMiddlewares.canGetContest,
   contestController.getContestById
 );
