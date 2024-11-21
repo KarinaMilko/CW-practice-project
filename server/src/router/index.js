@@ -31,7 +31,13 @@ router.post('/login', validators.validateLogin, userController.login);
 
 router.post('/getUser', checkToken.checkAuth);
 
+// public endpoint before checkToken.checkToken
+// TODO offerRouter, offerController
+router.get('/offers', contestController.getOffers);
+
 router.use(checkToken.checkToken);
+
+// private endpoint after checkToken.checkToken
 
 router.use('/contests', contestsRouter);
 

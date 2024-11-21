@@ -336,3 +336,23 @@ module.exports.getContests = (req, res, next) => {
       next(new ServerError());
     });
 };
+
+module.exports.getOffers = async (req, res, next) => {
+  const {
+    query: { limit = 8, offset = 0 },
+  } = req;
+  try {
+    const foundOffers = await db.Offers.findAll({
+      where: { status: CONSTANTS.OFFER_STATUS_WON },
+      attributes: ['text', 'fileName'],
+      limit,
+      offset,
+      order: [['id', 'ASC']],
+      raw: true,
+    });
+    const haveMore = foundOffers.length > 0;
+    res.send({ foundOffers, haveMore });
+  } catch (err) {
+    next(new ServerError(err));
+  }
+};
