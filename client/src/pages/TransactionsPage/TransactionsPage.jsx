@@ -1,8 +1,11 @@
-function TransactionsPage() {
-  const transactions = [
-    { id: 1, amount: 10, operationType: 'INCOME', createdAt: '2024-11-20' },
-    { id: 2, amount: 20, operationType: 'INCOME', createdAt: '2024-11-30' },
-  ];
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { getTransactionsThunk } from '../../store/slices/transactionsSlice';
+
+function TransactionsPage({ getTransactions, transactions }) {
+  useEffect(() => {
+    getTransactions();
+  });
 
   const total = transactions.reduce((accum, t) => accum + t.amount, 0);
 
@@ -40,4 +43,8 @@ function TransactionsPage() {
   );
 }
 
-export default TransactionsPage;
+const mapStateToProps = state => state.transactionsStore;
+const mapDispatchToProps = dispatch => ({
+  getTransactions: () => dispatch(getTransactionsThunk()),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(TransactionsPage);
