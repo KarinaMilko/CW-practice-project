@@ -262,3 +262,23 @@ module.exports.cashout = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.getUsersTransactions = async (req, res, next) => {
+  const {
+    query: { limit = 8, offset = 0 },
+    tokenData: { userId },
+  } = req;
+
+  try {
+    const foundTransactions = await bd.Transactions.findAll({
+      where: { userId },
+      limit,
+      offset,
+      raw: true,
+    });
+
+    res.status(200).send(foundTransactions);
+  } catch (err) {
+    next(err);
+  }
+};

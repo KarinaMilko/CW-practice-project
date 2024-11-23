@@ -8,6 +8,7 @@ const validators = require('../middlewares/validators');
 const chatController = require('../controllers/chatController');
 const upload = require('../utils/fileUpload');
 const contestsRouter = require('./contestsRouter');
+const usersRouter = require('./usersRouter');
 
 const router = express.Router();
 
@@ -39,6 +40,7 @@ router.use(checkToken.checkToken);
 
 // private endpoint after checkToken.checkToken
 
+router.use('/users', usersRouter);
 router.use('/contests', contestsRouter);
 
 router.post('/dataForContest', contestController.dataForContest);
